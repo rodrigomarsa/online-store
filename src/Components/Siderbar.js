@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+import * as api from '../services/api';
 
 class Sidebar extends Component {
   constructor() {
     super();
 
     this.state = {
-      category: null,
+      category: [],
     };
   }
 
@@ -15,8 +15,7 @@ class Sidebar extends Component {
   }
 
   getCategoriesFromApi = async () => {
-    const categories = await getCategories();
-    this.setState({ category: categories });
+    api.getCategories().then((categories) => this.setState({ category: categories }));
   };
 
   render() {
@@ -32,7 +31,7 @@ class Sidebar extends Component {
             <button
               id={ item.id }
               type="button"
-              data-testid={ item.name }
+              data-testid="category"
             >
               {item.name}
             </button>
