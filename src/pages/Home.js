@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Products from '../Components/Products';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Sidebar from '../Components/Siderbar';
 
 class Home extends Component {
   constructor() {
@@ -33,6 +35,7 @@ class Home extends Component {
 
     return (
       <div>
+        <Sidebar />
         <label htmlFor="search">
           <input
             type="text"
@@ -58,6 +61,13 @@ class Home extends Component {
         </p>
 
         <Products list={ products } />
+
+        <Link
+          to="/shopping-cart"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho de Compras
+        </Link>
       </div>
 
     );
