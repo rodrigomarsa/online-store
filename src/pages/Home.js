@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Products from '../Components/Products';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 import Sidebar from '../Components/Siderbar';
 
 class Home extends Component {
@@ -8,6 +10,7 @@ class Home extends Component {
 
     this.state = {
       search: '',
+      products: [],
     };
   }
 
@@ -16,8 +19,19 @@ class Home extends Component {
     this.setState({ search: value });
   };
 
-  render() {
+  getProductsFromAPI = async () => {
     const { search } = this.state;
+    const res = await getProductsFromCategoryAndQuery(null, search);
+    return res;
+  };
+
+  handleSearchButton = async () => {
+    const results = await this.getProductsFromAPI();
+    this.setState({ products: results.results });
+  };
+
+  render() {
+    const { search, products } = this.state;
 
     return (
       <div>
@@ -29,11 +43,25 @@ class Home extends Component {
             name="search"
             value={ search }
             onChange={ this.handleInputSearch }
+            data-testid="query-input"
           />
+
+          <button
+            type="button"
+            onClick={ this.handleSearchButton }
+            data-testid="query-button"
+          >
+            Pesquisar
+
+          </button>
         </label>
+
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+
+        <Products list={ products } />
+
         <Link
           to="/shopping-cart"
           data-testid="shopping-cart-button"
