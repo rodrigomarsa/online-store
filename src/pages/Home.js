@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Sidebar from '../Components/Siderbar';
 
 class Home extends Component {
   constructor() {
@@ -20,6 +21,7 @@ class Home extends Component {
 
     return (
       <div>
+        <Sidebar />
         <label htmlFor="search">
           <input
             type="text"
