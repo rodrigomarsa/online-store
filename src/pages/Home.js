@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Products from '../Components/Products';
-import { getProductsFromCategoryAndQuery } from '../services/api';
 import Sidebar from '../Components/Siderbar';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends Component {
   constructor() {
@@ -14,19 +14,19 @@ class Home extends Component {
     };
   }
 
+  handleCategoryClick = async (id) => {
+    const results = await getProductsFromCategoryAndQuery(id);
+    this.setState({ products: results.results });
+  };
+
   handleInputSearch = (event) => {
     const { value } = event.target;
     this.setState({ search: value });
   };
 
-  getProductsFromAPI = async () => {
-    const { search } = this.state;
-    const res = await getProductsFromCategoryAndQuery(null, search);
-    return res;
-  };
-
   handleSearchButton = async () => {
-    const results = await this.getProductsFromAPI();
+    const { search } = this.state;
+    const results = await getProductsFromCategoryAndQuery(null, search);
     this.setState({ products: results.results });
   };
 
@@ -35,7 +35,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Sidebar />
+        <Sidebar handleCategoryClick={ this.handleCategoryClick } />
         <label htmlFor="search">
           <input
             type="text"
