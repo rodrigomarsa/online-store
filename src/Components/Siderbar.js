@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import * as api from '../services/api';
 
@@ -20,7 +21,7 @@ class Sidebar extends Component {
 
   render() {
     const { category } = this.state;
-
+    const { handleCategoryClick } = this.props;
     return (
       <section>
         { category.map((item, index) => (
@@ -32,6 +33,7 @@ class Sidebar extends Component {
               id={ item.id }
               type="button"
               data-testid="category"
+              onClick={ () => handleCategoryClick(item.id) }
             >
               {item.name}
             </button>
@@ -42,5 +44,9 @@ class Sidebar extends Component {
     );
   }
 }
+
+Sidebar.propTypes = ({
+  handleCategoryClick: PropTypes.func.isRequired,
+});
 
 export default Sidebar;
