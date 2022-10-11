@@ -29,6 +29,7 @@ class ProductsDetails extends Component {
 
   handleAddCartClick = () => {
     const { product } = this.state;
+    product.quantity = 1;
     this.setState(
       (prev) => ({ cart: [...prev.cart, product] }),
       () => {

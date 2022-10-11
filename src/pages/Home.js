@@ -30,6 +30,7 @@ class Home extends Component {
     const { products } = this.state;
     const { value } = event.target;
     const itemsToCart = products.find((product) => product.id === value);
+    itemsToCart.quantity = 1;
     this.setState(
       (previous) => ({ cart: [...previous.cart, itemsToCart] }),
       () => {
