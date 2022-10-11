@@ -21,11 +21,14 @@ class ShoppingCart extends React.Component {
   render() {
     const { cart } = this.state;
 
+    if (!cart) {
+      return <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>;
+    }
+
     return (
       <div>
-        { !cart
-          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : cart.map((item, index) => (
+        {
+          cart.map((item, index) => (
             <div key={ index }>
               <p data-testid="shopping-cart-product-name">{item.title}</p>
               <img src={ item.thumbnail } alt={ item.title } />
@@ -34,7 +37,8 @@ class ShoppingCart extends React.Component {
                 1
               </p>
             </div>
-          ))}
+          ))
+        }
       </div>
     );
   }
