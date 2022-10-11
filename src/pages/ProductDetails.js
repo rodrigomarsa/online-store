@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { getFromLocalStorage, addToLocalStorage } from '../services/localStorage';
 
 class ProductsDetails extends Component {
   constructor() {
@@ -8,17 +9,34 @@ class ProductsDetails extends Component {
     this.state = ({
       product: {},
       loading: true,
+      cart: [],
     });
   }
 
   componentDidMount() {
-    this.getProductById().then((product) => {
-      this.setState({
-        product,
-        loading: false,
+    if (!localStorage) {
+      const cart = getFromLocalStorage();
+      this.setState({ cart });
+    } else {
+      this.getProductById().then((product) => {
+        this.setState({
+          product,
+          loading: false,
+        });
       });
-    });
+    }
   }
+
+  handleAddCartClick = () => {
+    const { product } = this.state;
+    this.setState(
+      (prev) => ({ cart: [...prev.cart, product] }),
+      () => {
+        const { cart } = this.state;
+        addToLocalStorage(cart);
+      },
+    );
+  };
 
   getProductById = async () => {
     const { match } = this.props;
@@ -32,7 +50,7 @@ class ProductsDetails extends Component {
   render() {
     const { product, loading } = this.state;
     const { title, price, pictures } = product;
-    if (loading) return (<div />);
+    if (loading) return (<p>Carregando</p>);
     return (
       <div>
         <h3 data-testid="product-detail-name">{title}</h3>
@@ -48,6 +66,13 @@ class ProductsDetails extends Component {
         >
           Carrinho de Compras
         </Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.handleAddCartClick }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }

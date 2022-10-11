@@ -6,6 +6,7 @@ class ShoppingCart extends React.Component {
     super();
     this.state = ({
       cart: [],
+      loading: true,
     });
   }
 
@@ -15,15 +16,15 @@ class ShoppingCart extends React.Component {
 
   getSavedProducts = () => {
     const products = getFromLocalStorage();
-    this.setState({ cart: products });
+    this.setState({ cart: products, loading: false });
   };
 
   render() {
-    const { cart } = this.state;
+    const { cart, loading } = this.state;
 
     return (
       <div>
-        { !cart
+        { loading
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           : cart.map((item, index) => (
             <div key={ index }>
