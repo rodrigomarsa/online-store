@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FormDetails from '../Components/FormDetails';
 
 class ProductsDetails extends Component {
   constructor() {
@@ -8,7 +9,14 @@ class ProductsDetails extends Component {
     this.state = ({
       product: {},
       loading: true,
-    });
+      review: {
+        email: '',
+        text: '',
+        rating: '',
+        isSubmitButtonDisabled: true,
+      },
+    }
+    );
   }
 
   componentDidMount() {
@@ -17,6 +25,28 @@ class ProductsDetails extends Component {
         product,
         loading: false,
       });
+    });
+  }
+
+  handleChange({ target }) {
+    const { name } = target;
+    const { value } = target;
+
+    this.setState((prev) => ({
+      review: {
+        ...prev.review,
+        [name]: value,
+      },
+    }));
+  }
+
+  onRatingChange(event) {
+    const { target } = event;
+    const { value } = target;
+
+    console.log(value);
+    this.setState({
+    //  rating: { }
     });
   }
 
@@ -48,6 +78,12 @@ class ProductsDetails extends Component {
         >
           Carrinho de Compras
         </Link>
+        <FormDetails
+          handleChange={ this.handleChange }
+          onRatingChange={ this.onRatingChange }
+          onSubmitButtonClick={ this.onSubmitButtonClick }
+          isSubmitButtonDisabled={ this.isSubmitButtonDisabled }
+        />
       </div>
     );
   }
