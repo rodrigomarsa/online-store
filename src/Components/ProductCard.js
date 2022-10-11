@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends Component {
   render() {
-
     const { name, image, price, id, handleAddCartClick } = this.props;
 
     return (
@@ -16,8 +15,7 @@ class ProductCard extends Component {
           <p>{name}</p>
           <img src={ image } alt={ name } />
           <p>{price}</p>
-        </Link>
-       
+        </Link>       
         <button
           type="button"
           data-testid="product-add-to-cart"
