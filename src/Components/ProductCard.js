@@ -15,7 +15,7 @@ class ProductCard extends Component {
           <p>{name}</p>
           <img src={ image } alt={ name } />
           <p>{price}</p>
-        </Link>       
+        </Link>
         <button
           type="button"
           data-testid="product-add-to-cart"
