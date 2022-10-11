@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Products from '../Components/Products';
 import Sidebar from '../Components/Siderbar';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { addToLocalStorage } from '../services/localStorage';
 
 class Home extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class Home extends Component {
     this.state = {
       search: '',
       products: [],
+      cart: [],
     };
   }
 
@@ -24,6 +26,19 @@ class Home extends Component {
     this.setState({ search: value });
   };
 
+  handleAddCartClick = (event) => {
+    const { products } = this.state;
+    const { value } = event.target;
+    const itemsToCart = products.find((product) => product.id === value);
+    this.setState(
+      (previous) => ({ cart: [...previous.cart, itemsToCart] }),
+      () => {
+        const { cart } = this.state;
+        addToLocalStorage(cart);
+      },
+    );
+  };
+
   handleSearchButton = async () => {
     const { search } = this.state;
     const results = await getProductsFromCategoryAndQuery(null, search);
@@ -31,7 +46,7 @@ class Home extends Component {
   };
 
   render() {
-    const { search, products } = this.state;
+    const { search, products, cart, quantity } = this.state;
 
     return (
       <div>
@@ -60,7 +75,12 @@ class Home extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
 
-        <Products list={ products } />
+        <Products
+          list={ products }
+          handleAddCartClick={ this.handleAddCartClick }
+          cart={ cart }
+          quantity={ quantity }
+        />
 
         <Link
           to="/shopping-cart"
