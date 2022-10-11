@@ -17,6 +17,7 @@ class Products extends Component {
               image={ product.thumbnail }
               name={ product.title }
               price={ product.price }
+              id={ product.id }
             />
           ))
         }
