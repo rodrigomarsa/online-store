@@ -62,7 +62,7 @@ class ShoppingCart extends React.Component {
       () => addToLocalStorage(products),
     );
   };
-  
+
   render() {
     const { empty, products } = this.state;
     return (
