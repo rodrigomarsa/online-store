@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FormDetails from '../Components/FormDetails';
-import PropTypes from 'prop-types';
 import { getFromLocalStorage, addToLocalStorage } from '../services/localStorage';
 
 class ProductsDetails extends Component {
