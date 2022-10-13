@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import FormDetails from '../Components/FormDetails';
 
 class ProductsDetails extends Component {
@@ -13,13 +13,15 @@ class ProductsDetails extends Component {
         email: '',
         text: '',
         rating: '',
-        isSubmitButtonDisabled: true,
       },
+      reviews: [],
+      error: false,
     }
     );
   }
 
   componentDidMount() {
+    this.getReviews();
     this.getProductById().then((product) => {
       this.setState({
         product,
@@ -28,7 +30,13 @@ class ProductsDetails extends Component {
     });
   }
 
-  handleChange({ target }) {
+  getReviews = () => {
+    const { match: { params: { id } } } = this.props;
+    const data = JSON.parse(localStorage.getItem(id));
+    this.setState({ reviews: data });
+  };
+
+  handleChange = ({ target }) => {
     const { name } = target;
     const { value } = target;
 
@@ -38,17 +46,27 @@ class ProductsDetails extends Component {
         [name]: value,
       },
     }));
-  }
+  };
 
-  onRatingChange(event) {
-    const { target } = event;
-    const { value } = target;
+  onSubmitButtonClick = () => {
+    const { review, product } = this.state;
 
-    console.log(value);
+    if (!review.email.includes('@') || !review.rating) {
+      this.setState({ error: true });
+      return;
+    }
+
+    const data = JSON.parse(localStorage.getItem(product.id));
+    const data2 = data ? JSON.stringify([...data, review]) : JSON.stringify([review]);
+    localStorage.setItem(`${product.id}`, data2);
+    this.getReviews();
     this.setState({
-    //  rating: { }
+      review: {
+        email: '', text: '', rating: 0,
+      },
+      error: false,
     });
-  }
+  };
 
   getProductById = async () => {
     const { match } = this.props;
@@ -60,7 +78,7 @@ class ProductsDetails extends Component {
   };
 
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, error, review, reviews } = this.state;
     const { title, price, pictures } = product;
     if (loading) return (<div />);
     return (
@@ -80,10 +98,30 @@ class ProductsDetails extends Component {
         </Link>
         <FormDetails
           handleChange={ this.handleChange }
+          handleClick={ this.handleClick }
           onRatingChange={ this.onRatingChange }
           onSubmitButtonClick={ this.onSubmitButtonClick }
-          isSubmitButtonDisabled={ this.isSubmitButtonDisabled }
+          error={ error }
+          review={ review }
         />
+
+        <section>
+          {
+            !Array.isArray(reviews) ? null : reviews.map((item, index) => (
+              <div key={ index }>
+                <p data-testid="review-card-email">
+                  {item.email}
+                </p>
+                <p data-testid="review-card-rating">
+                  {item.rating}
+                </p>
+                <p data-testid="review-card-evaluation">
+                  {item.text}
+                </p>
+              </div>
+            ))
+          }
+        </section>
       </div>
     );
   }
