@@ -28,7 +28,7 @@ class ProductsDetails extends Component {
         product,
         loading: false,
       });
-    }
+    });
   }
 
   getReviews = () => {
