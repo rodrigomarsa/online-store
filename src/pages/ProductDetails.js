@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FormDetails from '../Components/FormDetails';
-import { getFromLocalStorage, addToLocalStorage } from '../services/localStorage';
+import { addToLocalStorage } from '../services/localStorage';
 
 class ProductsDetails extends Component {
   constructor() {
@@ -66,6 +66,8 @@ class ProductsDetails extends Component {
       },
       error: false,
     });
+  };
+
   handleAddCartClick = () => {
     const { product } = this.state;
     product.quantity = 1;
