@@ -8,6 +8,7 @@ class ProductsDetails extends Component {
   constructor() {
     super();
     this.state = ({
+      cart: [],
       product: {},
       loading: true,
       review: {
@@ -22,13 +23,18 @@ class ProductsDetails extends Component {
   }
 
   componentDidMount() {
-    this.getReviews();
-    this.getProductById().then((product) => {
-      this.setState({
-        product,
-        loading: false,
+    if (!localStorage) {
+      const cart = getFromLocalStorage();
+      this.setState({ cart });
+    } else {
+      this.getReviews();
+      this.getProductById().then((product) => {
+        this.setState({
+          product,
+          loading: false,
+        });
       });
-    });
+    }
   }
 
   getReviews = () => {
