@@ -4,13 +4,11 @@
   font-style: normal;
   font-weight: 600;
   height: 68px;
-  left: 600px;
   letter-spacing: 0.055em;
   line-height: 31px;
-  position: absolute;
+  margin: auto;
   text-align: center;
   text-transform: uppercase;
-  top: 200px;
   width: 300px;
 }
 
