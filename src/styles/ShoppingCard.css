@@ -1,0 +1,33 @@
+.cart_container {
+  display: flex;
+  flex-flow: column;
+  padding-left: 100px;
+  padding-top: 15px;
+}
+
+.cart {
+  align-items: center;
+  display: flex;
+  flex-flow: row;
+  flex-shrink: 0;
+  height: 107px;
+  width: 446px;
+}
+
+.cart button {
+  align-self: center;
+  background: #31c28d;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 38.63px;
+  transition-duration: 0.8s;
+  width: 38.63px;
+}
+
+.cart button:hover {
+  background: #fc6436;
+  border-radius: 5px;
+  color: black;
+  height: 38.63px;
+}

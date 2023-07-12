@@ -1,13 +1,17 @@
 import React from 'react';
-import { getFromLocalStorage, addToLocalStorage } from '../services/localStorage';
+import {
+  getFromLocalStorage,
+  addToLocalStorage,
+} from '../services/localStorage';
+import '../styles/ShoppingCard.css';
 
 class ShoppingCart extends React.Component {
   constructor() {
     super();
-    this.state = ({
+    this.state = {
       empty: false,
       products: [],
-    });
+    };
   }
 
   componentDidMount() {
@@ -28,12 +32,14 @@ class ShoppingCart extends React.Component {
     // product.quantity += 1;
     // const cart = [...products];
     // this.setState({ products: cart });
-    this.setState({ products: products.map((item) => {
-      if (item.title === product.title) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    }) });
+    this.setState({
+      products: products.map((item) => {
+        if (item.title === product.title) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      }),
+    });
   };
 
   /**
@@ -43,12 +49,17 @@ class ShoppingCart extends React.Component {
   handleDecreaseQuantity = (product) => {
     const { products } = this.state;
 
-    this.setState({ products: products.map((item) => {
-      if (item.title === product.title) {
-        return { ...item, quantity: item.quantity === 1 ? 1 : item.quantity - 1 };
-      }
-      return item;
-    }) });
+    this.setState({
+      products: products.map((item) => {
+        if (item.title === product.title) {
+          return {
+            ...item,
+            quantity: item.quantity === 1 ? 1 : item.quantity - 1,
+          };
+        }
+        return item;
+      }),
+    });
   };
 
   /**
@@ -67,43 +78,49 @@ class ShoppingCart extends React.Component {
     const { empty, products } = this.state;
     return (
       <div data-testid="shopping-cart-empty-message">
-        {
-          empty ? 'Seu carrinho está vazio' : products
-            .map((product, index) => (
-              <div key={ index }>
+        <h1>Carrinho de Compras</h1>
+        <section className="cart_container">
+          {empty
+            ? 'Seu carrinho está vazio'
+            : products.map((product, index) => (
+              <div key={ index } className="cart">
+                <button
+                  type="button"
+                  onClick={ () => this.handleRemoveProduct(product) }
+                  data-testid="remove-product"
+                >
+                  x
+                </button>
+                <img
+                  src={ product.thumbnail }
+                  alt={ `Imagem do ${product.title}` }
+                />
                 <p data-testid="shopping-cart-product-name">{product.title}</p>
-                <p>{product.price}</p>
-                <p data-testid="shopping-cart-product-quantity">{product.quantity}</p>
-                <div>
-                  <button
-                    type="button"
-                    onClick={ () => this.handleIncreaseQuantity(product) }
-                    data-testid="product-increase-quantity"
-                  >
-                    +
-
-                  </button>
-                  <button
-                    type="button"
-                    onClick={ () => this.handleDecreaseQuantity(product) }
-                    data-testid="product-decrease-quantity"
-                  >
-                    -
-
-                  </button>
-                  <button
-                    type="button"
-                    onClick={ () => this.handleRemoveProduct(product) }
-                    data-testid="remove-product"
-                  >
-                    x
-
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={ () => this.handleDecreaseQuantity(product) }
+                  data-testid="product-decrease-quantity"
+                >
+                  -
+                </button>
+                <p data-testid="shopping-cart-product-quantity">
+                  {product.quantity}
+                </p>
+                <button
+                  type="button"
+                  onClick={ () => this.handleIncreaseQuantity(product) }
+                  data-testid="product-increase-quantity"
+                >
+                  +
+                </button>
+                <p>
+                  R$
+                  {product.price.toFixed(2)}
+                </p>
                 <br />
               </div>
-            ))
-        }
+            ))}
+        </section>
       </div>
     );
   }
