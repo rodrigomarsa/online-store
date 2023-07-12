@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/online-store/static/css/main.a0006fd7.css",
+    "main.js": "/online-store/static/js/main.6bcd8271.js",
+    "static/media/logo.svg": "/online-store/static/media/logo.6aa8086e16ece0b1d554b2ed589aaeb5.svg",
+    "static/media/carrinho.svg": "/online-store/static/media/carrinho.4306af3606115c94fe64cc6087ee0c63.svg",
+    "static/media/lupa.svg": "/online-store/static/media/lupa.fc9802714ddb63728b109135dfa76860.svg",
+    "index.html": "/online-store/index.html",
+    "main.a0006fd7.css.map": "/online-store/static/css/main.a0006fd7.css.map",
+    "main.6bcd8271.js.map": "/online-store/static/js/main.6bcd8271.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a0006fd7.css",
+    "static/js/main.6bcd8271.js"
+  ]
+}
