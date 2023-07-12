@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Products from '../Components/Products';
-import Sidebar from '../Components/Siderbar';
+import Sidebar from '../Components/Sidebar';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import { addToLocalStorage } from '../services/localStorage';
+import '../styles/Home.css';
+import carrinho from '../images/carrinho.svg';
+import logo from '../images/logo.svg';
+import lupa from '../images/lupa.svg';
 
 class Home extends Component {
   constructor() {
@@ -51,30 +55,47 @@ class Home extends Component {
 
     return (
       <div>
-        <Sidebar handleCategoryClick={ this.handleCategoryClick } />
-        <label htmlFor="search">
-          <input
-            type="text"
-            id="search"
-            name="search"
-            value={ search }
-            onChange={ this.handleInputSearch }
-            data-testid="query-input"
-          />
+        <div className="header">
+          <label htmlFor="search" className="search">
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Digite o que você busca"
+              value={ search }
+              onChange={ this.handleInputSearch }
+              data-testid="query-input"
+            />
 
-          <button
-            type="button"
-            onClick={ this.handleSearchButton }
-            data-testid="query-button"
+            <button
+              type="button"
+              onClick={ this.handleSearchButton }
+              data-testid="query-button"
+            >
+              <img src={ lupa } alt="lupa" />
+            </button>
+          </label>
+
+          <img src={ logo } alt="logo" />
+
+          <Link
+            className="cart"
+            to="/shopping-cart"
+            data-testid="shopping-cart-button"
           >
-            Pesquisar
+            <img src={ carrinho } alt="carrinho de compras" />
+          </Link>
+        </div>
 
-          </button>
-        </label>
+        <div className="categories">
+          <Sidebar handleCategoryClick={ this.handleCategoryClick } />
+        </div>
 
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
+        {products.length === 0 && (
+          <p data-testid="home-initial-message" className="message">
+            Digite algum termo de pesquisa ou escolha uma categoria
+          </p>
+        )}
 
         <Products
           list={ products }
@@ -82,15 +103,7 @@ class Home extends Component {
           cart={ cart }
           quantity={ quantity }
         />
-
-        <Link
-          to="/shopping-cart"
-          data-testid="shopping-cart-button"
-        >
-          Carrinho de Compras
-        </Link>
       </div>
-
     );
   }
 }

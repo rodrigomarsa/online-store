@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
+import '../styles/Products.css';
 
 class Products extends Component {
   render() {
     const { list, handleAddCartClick } = this.props;
 
-    if (list.length === 0) return <p>Nenhum produto foi encontrado</p>;
+    if (list.length === 0) {
+      return (
+        <p className="not_search">Nenhum produto foi encontrado</p>
+      );
+    }
 
     return (
-      <div>
+      <div className="products">
         {
           list.map((product) => (
             <ProductCard

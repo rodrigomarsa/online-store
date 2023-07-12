@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import '../styles/FormDetails.css';
 
 class FormDetails extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class FormDetails extends React.Component {
     } = this.props;
 
     return (
-      <>
+      <div className="container_form">
         <h2>Avaliações</h2>
 
         {
@@ -33,6 +34,7 @@ class FormDetails extends React.Component {
             />
             <br />
           </label>
+          <br />
           <label htmlFor="rating-one">
             1
             <input
@@ -93,6 +95,7 @@ class FormDetails extends React.Component {
             />
             <br />
           </label>
+          <br />
           <label htmlFor="evaluation">
             Comentários:
             <br />
@@ -106,16 +109,16 @@ class FormDetails extends React.Component {
             />
             <br />
           </label>
-          <button
-            data-testid="submit-review-btn"
-            type="button"
-            id="submitButton"
-            onClick={ onSubmitButtonClick }
-          >
-            Avaliar
-          </button>
         </form>
-      </>
+        <button
+          data-testid="submit-review-btn"
+          type="button"
+          id="submitButton"
+          onClick={ onSubmitButtonClick }
+        >
+          Avaliar
+        </button>
+      </div>
     );
   }
 }

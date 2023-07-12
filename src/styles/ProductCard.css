@@ -1,0 +1,8 @@
+.product-card {
+  display: flex;
+  flex-flow: column;
+  flex-shrink: 0;
+  height: 358.704px;
+  padding-right: 50px;
+  width: 279.605px;
+}

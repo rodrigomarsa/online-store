@@ -1,0 +1,51 @@
+.not_search {
+  color: #31c28d;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  height: 68px;
+  left: 600px;
+  letter-spacing: 0.055em;
+  line-height: 31px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 200px;
+  width: 300px;
+}
+
+.products {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding-left: 250px;
+}
+
+.products p {
+  color: black;
+  font-family: Franklin Gothic Medium , Arial Narrow , Arial , sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+.products button {
+  align-self: center;
+  background: #31c28d;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 38.63px;
+  transition-duration: 0.8s;
+  width: 244.654px;
+}
+
+.products button:hover {
+  background: #fc6436;
+  border-radius: 5px;
+  color: black;
+  height: 38.63px;
+  width: 100%;
+}

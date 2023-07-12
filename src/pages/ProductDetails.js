@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import FormDetails from '../Components/FormDetails';
 import { addToLocalStorage } from '../services/localStorage';
+import '../styles/ProductDetails.css';
+import carrinho from '../images/carrinho.svg';
 
 class ProductsDetails extends Component {
   constructor() {
@@ -100,20 +102,34 @@ class ProductsDetails extends Component {
     const { title, price, pictures } = product;
     if (loading) return (<p>Carregando</p>);
     return (
-      <div>
-        <h3 data-testid="product-detail-name">{title}</h3>
-        <img
-          src={ pictures[0].url }
-          alt={ `Imagem do ${title}` }
-          data-testid="product-detail-image"
-        />
-        <p data-testid="product-detail-price">{price}</p>
+      <div className="container_details">
         <Link
+          className="cart_details"
           to="/shopping-cart"
           data-testid="shopping-cart-button"
         >
-          Carrinho de Compras
+          <img src={ carrinho } alt="carrinho de compras" />
         </Link>
+        <div className="product_info">
+          <h3 data-testid="product-detail-name">{title}</h3>
+          <img
+            src={ pictures[0].url }
+            alt={ `Imagem do ${title}` }
+            data-testid="product-detail-image"
+          />
+          <p data-testid="product-detail-price">
+            R$
+            {' '}
+            {price.toFixed(2)}
+          </p>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.handleAddCartClick }
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
         <FormDetails
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
@@ -123,7 +139,7 @@ class ProductsDetails extends Component {
           review={ review }
         />
 
-        <section>
+        <section className="reviews">
           {
             !Array.isArray(reviews) ? null : reviews.map((item, index) => (
               <div key={ index }>
@@ -131,6 +147,8 @@ class ProductsDetails extends Component {
                   {item.email}
                 </p>
                 <p data-testid="review-card-rating">
+                  Nota:
+                  {' '}
                   {item.rating}
                 </p>
                 <p data-testid="review-card-evaluation">
@@ -140,13 +158,6 @@ class ProductsDetails extends Component {
             ))
           }
         </section>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ this.handleAddCartClick }
-        >
-          Adicionar ao Carrinho
-        </button>
       </div>
     );
   }

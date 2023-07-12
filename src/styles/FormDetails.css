@@ -1,0 +1,6 @@
+.container_form {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  padding-left: 100px;
+}

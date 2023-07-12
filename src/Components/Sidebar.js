@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import * as api from '../services/api';
+// import '../styles/Sidebar.css';
 
 class Sidebar extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class Sidebar extends Component {
     const { category } = this.state;
     const { handleCategoryClick } = this.props;
     return (
-      <section>
+      <section className="categories">
         { category.map((item, index) => (
           <label
             key={ index }

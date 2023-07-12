@@ -1,0 +1,73 @@
+/* .Home {
+  padding: 50px;
+  width: 100%;
+} */
+
+.header {
+  align-items: center;
+  background: #003be5;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search {
+  display: flex;
+  height: 40px;
+  padding: 0 5px;
+  width: 20%;
+}
+
+.search input {
+  border: none;
+  border-radius: 5px 0 0 5px;
+  height: 100%;
+  padding: 0 5px;
+  width: 80%;
+}
+
+.search button {
+  background: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  height: 100%;
+  width: 20%;
+}
+
+img {
+  align-self: center;
+}
+
+.cart {
+  padding-right: 5%;
+}
+
+.categories {
+  position: absolute;
+}
+
+.categories button {
+  background: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  padding-left: 30px;
+  padding-top: 15px;
+  width: 200px;
+}
+
+.message {
+  color: #94979d;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  height: 42px;
+  left: 600px;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  top: 320px;
+  width: 300px;
+}
